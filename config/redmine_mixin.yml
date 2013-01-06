@@ -1,0 +1,13 @@
+default: &default
+  redmine_server: "http://localhost:3000"
+  redmine_username: "admin"
+  redmine_password: "admin"
+
+development:
+  <<: *default
+  
+test:
+  <<: *default
+  
+production:
+  <<: *default
