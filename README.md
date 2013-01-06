@@ -23,6 +23,7 @@ The "Enable REST web service" box must be checked on the Redmine server under Se
 The default username and password for the redmine server are used. To override, create a file in config called
 redmine_mixin.yml and input your settings:
 
+<code>
 ```yml
 default: &default
   redmine_server: "http://localhost:3000"
@@ -38,6 +39,7 @@ test:
 production:
   <<: *default
 ```
+</code>
 The following Redmine models are exported via this gem:
 
 * IssueResource
