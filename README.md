@@ -2,6 +2,9 @@
 
 Enables some Redmine models to be available via other rails apps
 
+## TODOs
+* Write tests... yeah.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -23,7 +26,7 @@ The "Enable REST web service" box must be checked on the Redmine server under Se
 The default username and password for the redmine server are used. To override, create a file in config called
 redmine_mixin.yml and input your settings:
 
-<code=ruby>
+<code>
 ```ruby
 default: &default
   redmine_server: "http://localhost:3000"

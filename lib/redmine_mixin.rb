@@ -1,4 +1,4 @@
-require "redmine_mixin/version"
+require 'redmine_mixin/version'
 require 'yaml'
 require 'rubygems'
 require 'active_resource'
