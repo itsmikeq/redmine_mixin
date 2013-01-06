@@ -2,9 +2,6 @@ require "redmine_mixin/version"
 require 'yaml'
 require 'rubygems'
 require 'active_resource'
-
-# require 'activesupport'
-# require 'activesupport/lib/active_support/hash_with_indifferent_access'
 require 'active_support/core_ext/hash/indifferent_access'
 require 'logger'
 require 'net/http'
@@ -42,16 +39,14 @@ end
 # self.format = XMLFormatter.new("project")
 # end
 
-# class ProjectXMLFormatter
-# include ActiveResource::Formats::XmlFormat
-# def decode(xml)
-# ActiveResource::Formats::XmlFormat.decode(xml)['projects']
-# end
-# end
-
 module RedmineMixin
   RAILS_ENV = ENV['RAILS_ENV'] ? ENV['RAILS_ENV'] : "development"
-  APP_CONFIG = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path('../../config/redmine_mixin.yml', __FILE__))))[RAILS_ENV]
+  begin
+    APP_CONFIG = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path("#{Rails.root}config/redmine_mixin.yml", __FILE__))))[RAILS_ENV]
+  rescue => e
+    puts e
+    APP_CONFIG = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path('../../config/redmine_mixin.yml', __FILE__))))[RAILS_ENV]
+  end
   def initialize(options={})
 
   end

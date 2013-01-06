@@ -54,7 +54,9 @@ The following Redmine models are exported via this gem:
 * PrincipalResource
 * UserResource
 
-To use them in your Rails app, 
+To use them in your Rails app, install the gem and write stuff
+
+To use from the command line,  bundle exec irb -Ilib -Iconfig/initializers.rb -rredmine_mixin
 
 ## Contributing
 
