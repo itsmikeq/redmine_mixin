@@ -42,13 +42,23 @@ end
 module RedmineMixin
   RAILS_ENV = ENV['RAILS_ENV'] ? ENV['RAILS_ENV'] : "development"
   begin
-    APP_CONFIG = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path("#{Rails.root}config/redmine_mixin.yml", __FILE__))))[RAILS_ENV]
+    
+    APP_CONFIG = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path("#{Dir.pwd}/config/redmine_mixin.yml", __FILE__))))[RAILS_ENV]
   rescue => e
     puts e
     APP_CONFIG = HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path('../../config/redmine_mixin.yml', __FILE__))))[RAILS_ENV]
   end
-  def initialize(options={})
 
+  def initialize(options={})
+    puts "Rails Root: #{Rails.root}"
+  end
+
+  class Railtie < Rails::Railtie
+    initializer "Include your code in the controller" do
+      ActiveSupport.on_load(:action_controller) do
+        include RedmineMixin
+      end
+    end
   end
 
   # All formats must be json.  Breaks otherwise
@@ -89,7 +99,7 @@ module RedmineMixin
     self.user=APP_CONFIG[:redmine_username]
     self.password=APP_CONFIG[:redmine_password]
     self.site = APP_CONFIG[:redmine_server]
-  self.format = :json
+    self.format = :json
   end
 
   class GitResource < ActiveResource::Base
